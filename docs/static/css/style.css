@@ -255,7 +255,6 @@ figcaption { font-size: 14px; color: var(--ink-3); margin-top: 10px; text-align:
   .badge { left: 6px; bottom: 6px; font-size: 10px; padding: 2px 6px; }
   .cam-labels span { margin: 6px; font-size: 9px; padding: 2px 5px; }
 }
-.case-desc { margin-top: 14px; text-align: center; font-size: 15px; color: var(--ink-2); }
 
 /* ---------- Tables ---------- */
 .table-wrap { overflow-x: auto; margin: 26px 0 8px; }

@@ -2,18 +2,15 @@
   const CASES = {
     1: {
       key: 'case1_brake',
-      variants: ['vanilla', 'sam3d'],
-      desc: 'Agent<Zone> selects the lead vehicle (front zone, TTC 1.0 s). It brakes hard toward a near rear-end interaction.'
+      variants: ['vanilla', 'sam3d']
     },
     2: {
       key: 'case2_cutin',
-      variants: ['vanilla', 'sam3d'],
-      desc: 'A vehicle in the adjacent lane cuts in under short headway (front zone, TTC 1.2 s).'
+      variants: ['vanilla', 'sam3d']
     },
     3: {
       key: 'case3_drift',
-      variants: ['original', 'vanilla', 'sam3d'],
-      desc: 'An oncoming vehicle drifts over the center line toward the ego vehicle (front zone, TTC 1.99 s). "Unedited path" renders the recorded trajectory.'
+      variants: ['original', 'vanilla', 'sam3d']
     }
   };
   const BADGE = { original: 'CARLA-GS · unedited path', vanilla: 'CARLA-GS · vanilla 3DGS', sam3d: 'CARLA-GS · SAM 3D' };
@@ -21,7 +18,6 @@
   const video = document.getElementById('case-video');
   const raw = document.getElementById('raw-video');
   const badge = document.getElementById('gen-badge');
-  const desc = document.getElementById('case-desc');
   const tabs = document.querySelectorAll('.tab');
   const variantBtns = document.querySelectorAll('.variant');
   let current = 1;
@@ -75,7 +71,6 @@
       c.variants.forEach(name => { if (name !== variant) prefetch(url(c.key, name)); });
     }
     badge.textContent = BADGE[variant];
-    desc.textContent = c.desc;
     variantBtns.forEach(b => {
       b.hidden = !c.variants.includes(b.dataset.variant);
       b.classList.toggle('active', b.dataset.variant === variant);
@@ -103,6 +98,5 @@
     if (entries.some(e => e.isIntersecting) && video.paused) video.play().catch(() => {});
   }, { threshold: 0.25 }).observe(video);
 
-  desc.textContent = CASES[1].desc;
   CASES[1].variants.forEach(name => { if (name !== variant) prefetch(url(CASES[1].key, name)); });
 })();
