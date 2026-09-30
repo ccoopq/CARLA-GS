@@ -13,19 +13,35 @@
     3: {
       key: 'case3_drift',
       variants: ['original', 'vanilla', 'sam3d'],
-      desc: 'An oncoming vehicle drifts over the center line toward the ego vehicle (front zone, TTC 1.99 s). "Original log" keeps the recorded path.'
+      desc: 'An oncoming vehicle drifts over the center line toward the ego vehicle (front zone, TTC 1.99 s). "Unedited trajectory" renders the recorded path.'
     }
   };
 
   const video = document.getElementById('case-video');
+  const raw = document.getElementById('raw-video');
   const desc = document.getElementById('case-desc');
   const tabs = document.querySelectorAll('.tab');
   const variantBtns = document.querySelectorAll('.variant');
   let current = 1;
   let variant = 'sam3d';
 
+  // The original log follows the generated video, so the two stay frame-aligned.
+  function sync() {
+    if (Math.abs(raw.currentTime - video.currentTime) > 0.06) raw.currentTime = video.currentTime;
+  }
+  video.addEventListener('play', () => { sync(); raw.play().catch(() => {}); });
+  video.addEventListener('pause', () => raw.pause());
+  video.addEventListener('seeked', sync);
+  video.addEventListener('timeupdate', sync);
+  video.addEventListener('ratechange', () => { raw.playbackRate = video.playbackRate; });
+
   function load(keepTime) {
     const c = CASES[current];
+    if (!keepTime) {
+      raw.poster = 'static/videos/' + c.key + '_raw.jpg';
+      raw.src = 'static/videos/' + c.key + '_raw.mp4';
+      raw.load();
+    }
     if (!c.variants.includes(variant)) variant = 'sam3d';
     const t = keepTime ? video.currentTime : 0;
     const base = 'static/videos/' + c.key + '_' + variant;
