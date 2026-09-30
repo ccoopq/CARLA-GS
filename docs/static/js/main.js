@@ -18,60 +18,69 @@
   };
   const BADGE = { original: 'CARLA-GS · unedited path', vanilla: 'CARLA-GS · vanilla 3DGS', sam3d: 'CARLA-GS · SAM 3D' };
 
+  const video = document.getElementById('case-video');
   const raw = document.getElementById('raw-video');
-  const genFrame = document.getElementById('gen-frame');
   const badge = document.getElementById('gen-badge');
   const desc = document.getElementById('case-desc');
   const tabs = document.querySelectorAll('.tab');
   const variantBtns = document.querySelectorAll('.variant');
   let current = 1;
   let variant = 'sam3d';
-  let gens = {};
+  let request = 0;
 
-  // Every variant of the current case is loaded and kept in sync with the original log,
-  // so switching variant only changes which video is visible.
-  function buildCase() {
-    const c = CASES[current];
-    if (!c.variants.includes(variant)) variant = 'sam3d';
-    Object.values(gens).forEach(v => v.remove());
-    gens = {};
-    c.variants.forEach(name => {
-      const v = document.createElement('video');
-      v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'auto';
-      v.poster = 'static/videos/' + c.key + '_' + name + '.jpg';
-      v.src = 'static/videos/' + c.key + '_' + name + '.mp4';
-      genFrame.insertBefore(v, badge);
-      gens[name] = v;
+  // Only two videos ever decode at once. Other variants are downloaded as plain data,
+  // so switching to them does not wait on the network.
+  const blobs = {};
+  function prefetch(url) {
+    if (!blobs[url]) {
+      blobs[url] = fetch(url).then(r => r.ok ? r.blob() : Promise.reject())
+        .then(b => URL.createObjectURL(b)).catch(() => url);
+    }
+    return blobs[url];
+  }
+  const url = (key, name) => 'static/videos/' + key + '_' + name + '.mp4';
+
+  // The original log follows the generated video, so the two stay frame-aligned.
+  function sync() {
+    if (Math.abs(raw.currentTime - video.currentTime) > 0.06) raw.currentTime = video.currentTime;
+  }
+  video.addEventListener('play', () => { sync(); raw.play().catch(() => {}); });
+  video.addEventListener('pause', () => raw.pause());
+  video.addEventListener('seeked', sync);
+  video.addEventListener('timeupdate', sync);
+
+  function setGen(src, t) {
+    video.addEventListener('loadedmetadata', function once() {
+      video.removeEventListener('loadedmetadata', once);
+      if (t && t < video.duration) video.currentTime = t;
+      video.play().catch(() => {});
     });
-    raw.poster = 'static/videos/' + c.key + '_raw.jpg';
-    raw.src = 'static/videos/' + c.key + '_raw.mp4';
-    raw.play().catch(() => {});
-    desc.textContent = c.desc;
-    showVariant();
+    video.src = src;
+    video.load();
   }
 
-  function showVariant() {
+  function load(keepTime) {
     const c = CASES[current];
-    Object.entries(gens).forEach(([name, v]) => { v.hidden = name !== variant; });
+    const id = ++request;
+    if (!c.variants.includes(variant)) variant = 'sam3d';
+    const t = keepTime ? video.currentTime : 0;
+    video.poster = 'static/videos/' + c.key + '_' + variant + '.jpg';
+    if (keepTime) {
+      prefetch(url(c.key, variant)).then(src => { if (id === request) setGen(src, t); });
+    } else {
+      raw.poster = 'static/videos/' + c.key + '_raw.jpg';
+      raw.src = url(c.key, 'raw');
+      raw.load();
+      setGen(url(c.key, variant), 0);
+      c.variants.forEach(name => { if (name !== variant) prefetch(url(c.key, name)); });
+    }
     badge.textContent = BADGE[variant];
+    desc.textContent = c.desc;
     variantBtns.forEach(b => {
       b.hidden = !c.variants.includes(b.dataset.variant);
       b.classList.toggle('active', b.dataset.variant === variant);
     });
-    sync();
   }
-
-  function sync() {
-    Object.values(gens).forEach(v => {
-      if (v.readyState >= 1 && Math.abs(v.currentTime - raw.currentTime) > 0.06) v.currentTime = raw.currentTime;
-      if (raw.paused !== v.paused) (raw.paused ? v.pause() : v.play().catch(() => {}));
-    });
-  }
-  ['timeupdate', 'play', 'pause', 'seeked'].forEach(e => raw.addEventListener(e, sync));
-
-  document.getElementById('compare').addEventListener('click', () => {
-    raw.paused ? raw.play().catch(() => {}) : raw.pause();
-  });
 
   tabs.forEach(tab => tab.addEventListener('click', () => {
     current = Number(tab.dataset.case);
@@ -80,13 +89,15 @@
       t.classList.toggle('active', on);
       t.setAttribute('aria-selected', on);
     });
-    buildCase();
+    load(false);
   }));
 
+  // Switching variant keeps the playback time so the renderings are easy to compare.
   variantBtns.forEach(btn => btn.addEventListener('click', () => {
     variant = btn.dataset.variant;
-    showVariant();
+    load(true);
   }));
 
-  buildCase();
+  desc.textContent = CASES[1].desc;
+  CASES[1].variants.forEach(name => { if (name !== variant) prefetch(url(CASES[1].key, name)); });
 })();

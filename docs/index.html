@@ -264,13 +264,18 @@ TTC       : 1.99 s</pre>
         <button class="variant active" data-variant="sam3d">SAM 3D</button>
       </div>
     </div>
-    <div class="compare" id="compare" title="Click to pause or play">
+    <div class="compare">
       <figure class="video-frame">
-        <video id="raw-video" autoplay muted loop playsinline preload="auto" poster="static/videos/case1_brake_raw.jpg" src="static/videos/case1_brake_raw.mp4"></video>
+        <video id="raw-video" muted loop playsinline preload="auto" poster="static/videos/case1_brake_raw.jpg">
+          <source src="static/videos/case1_brake_raw.mp4" type="video/mp4">
+        </video>
         <div class="cam-labels" aria-hidden="true"><span>Front-left</span><span>Front</span><span>Front-right</span></div>
         <span class="badge">Original log</span>
       </figure>
-      <figure class="video-frame" id="gen-frame">
+      <figure class="video-frame">
+        <video id="case-video" autoplay muted loop playsinline controls preload="auto" poster="static/videos/case1_brake_sam3d.jpg">
+          <source src="static/videos/case1_brake_sam3d.mp4" type="video/mp4">
+        </video>
         <span class="badge accent" id="gen-badge">CARLA-GS &middot; SAM 3D</span>
       </figure>
     </div>

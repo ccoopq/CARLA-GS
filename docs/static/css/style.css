@@ -243,8 +243,7 @@ figcaption { font-size: 14px; color: var(--ink-3); margin-top: 10px; text-align:
 .variant.active { background: var(--accent-soft); color: var(--accent); border-color: #f5b5bf; }
 .case-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-bottom: 14px; }
 .case-bar .tabs, .case-bar .variants { margin: 0; }
-.compare { display: grid; gap: 10px; cursor: pointer; }
-.compare video[hidden] { display: none; }
+.compare { display: grid; gap: 10px; }
 .badge {
   position: absolute; left: 10px; bottom: 10px;
   font-size: 12px; font-weight: 700; letter-spacing: .04em;
