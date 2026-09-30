@@ -98,6 +98,11 @@
     load(true);
   }));
 
+  // Browsers may hold back autoplay for videos that start off screen; start it once visible.
+  new IntersectionObserver(entries => {
+    if (entries.some(e => e.isIntersecting) && video.paused) video.play().catch(() => {});
+  }, { threshold: 0.25 }).observe(video);
+
   desc.textContent = CASES[1].desc;
   CASES[1].variants.forEach(name => { if (name !== variant) prefetch(url(CASES[1].key, name)); });
 })();
