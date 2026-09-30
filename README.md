@@ -91,9 +91,10 @@ python train.py --config configs/example/waymo_train_<scene>.yaml
 ```
 
 **2. LLM corner-case reasoning** — `Agent<Zone>` + `Agent<Trajectory>` output the selected vehicle, zone, TTC, risk and a waypoint CSV.
-Put each scene's `track_info.csv` (object tracks) and `ego_pose.txt` (ego poses) in `LLMCorner/data/<scene>/`.
+First build its inputs (`track_info.csv`: object tracks, `ego_pose.txt`: ego poses) from the converted scene:
 
 ```bash
+python script/waymo/prepare_llm_inputs.py --datadir DATA_DIR/<scene> --outdir LLMCorner/data/<scene>
 python LLMCorner/main.py --scene <scene>                # optional: --behavior "sudden braking"
 ```
 
