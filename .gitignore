@@ -1,0 +1,20 @@
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+*.so
+.vscode/
+.ipynb_checkpoints/
+
+# data, checkpoints and outputs
+data/
+output/
+tensorboard/
+LLMCorner/data/
+SAM3D_MODELS/
+GroundingDINO/
+*.pth
+*.ckpt
+*.ply
+target_vehicle_trajectory*.csv

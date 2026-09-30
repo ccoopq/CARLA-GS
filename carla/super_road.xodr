@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<OpenDRIVE>
+<header revMajor="1" revMinor="4" name="four_lane" version="1.00">
+    <geoReference><![CDATA[
++proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
+]]></geoReference>
+    <offset x="0" y="0" z="0" hdg="0"/>
+</header>
+
+<road name="super_road" length="2000" id="20" junction="-1">
+
+    <!-- Road connects to itself → enables routing -->
+    <link>
+        <successor elementType="road" elementId="20" contactPoint="start"/>
+        <predecessor elementType="road" elementId="20" contactPoint="end"/>
+    </link>
+
+    <type s="0" type="town"/>
+
+    <planView>
+        <geometry s="0" x="-1000" y="12.8" hdg="0" length="2000">
+            <line/>
+        </geometry>
+    </planView>
+
+    <elevationProfile>
+        <elevation s="0" a="0" b="0" c="0" d="0"/>
+    </elevationProfile>
+
+    <lateralProfile>
+        <superelevation s="0" a="0" b="0" c="0" d="0"/>
+    </lateralProfile>
+
+    <lanes>
+
+
+        <!-- ========================= -->
+        <!-- laneSection 1: s = 0 -->
+        <!-- ========================= -->
+        <laneSection s="0">
+            <center>
+                <lane id="0" type="none">
+                    <roadMark sOffset="0" type="solid" width="0.20"/>
+                </lane>
+            </center>
+
+            <right>
+
+                <lane id="-1" type="driving">
+                    <link><predecessor id="-1"/><successor id="-1"/></link>
+                    <width sOffset="0" a="3.2"/>
+                    <roadMark sOffset="0" type="broken" width="0.20"><line length="3" space="9"/></roadMark>
+                    <speed sOffset="0" max="45"/>
+                </lane>
+
+                <lane id="-2" type="driving">
+                    <link><predecessor id="-2"/><successor id="-2"/></link>
+                    <width sOffset="0" a="3.2"/>
+                    <roadMark sOffset="0" type="broken" width="0.20"><line length="3" space="9"/></roadMark>
+                    <speed sOffset="0" max="45"/>
+                </lane>
+
+                <lane id="-3" type="driving">
+                    <link><predecessor id="-3"/><successor id="-3"/></link>
+                    <width sOffset="0" a="3.2"/>
+                    <roadMark sOffset="0" type="broken" width="0.20"><line length="3" space="9"/></roadMark>
+                    <speed sOffset="0" max="45"/>
+                </lane>
+
+                <lane id="-4" type="driving">
+                    <link><predecessor id="-4"/><successor id="-4"/></link>
+                    <width sOffset="0" a="3.2"/>
+                    <roadMark sOffset="0" type="broken" width="0.20"><line length="3" space="9"/></roadMark>
+                    <speed sOffset="0" max="45"/>
+                </lane>
+                
+                <lane id="-5" type="driving">
+                    <link><predecessor id="-4"/><successor id="-4"/></link>
+                    <width sOffset="0" a="3.2"/>
+                    <roadMark sOffset="0" type="broken" width="0.20"><line length="3" space="9"/></roadMark>
+                    <speed sOffset="0" max="45"/>
+                </lane>
+                
+                <lane id="-6" type="driving">
+                    <link><predecessor id="-4"/><successor id="-4"/></link>
+                    <width sOffset="0" a="3.2"/>
+                    <roadMark sOffset="0" type="broken" width="0.20"><line length="3" space="9"/></roadMark>
+                    <speed sOffset="0" max="45"/>
+                </lane>
+                
+                <lane id="-7" type="driving">
+                    <link><predecessor id="-4"/><successor id="-4"/></link>
+                    <width sOffset="0" a="3.2"/>
+                    <roadMark sOffset="0" type="broken" width="0.20"><line length="3" space="9"/></roadMark>
+                    <speed sOffset="0" max="45"/>
+                </lane>
+                
+                <lane id="-8" type="driving">
+                    <link><predecessor id="-4"/><successor id="-4"/></link>
+                    <width sOffset="0" a="3.2"/>
+                    <roadMark sOffset="0" type="broken" width="0.20"><line length="3" space="9"/></roadMark>
+                    <speed sOffset="0" max="45"/>
+                </lane>
+                
+                <lane id="-9" type="driving">
+                    <link><predecessor id="-4"/><successor id="-4"/></link>
+                    <width sOffset="0" a="3.2"/>
+                    <roadMark sOffset="0" type="broken" width="0.20"><line length="3" space="9"/></roadMark>
+                    <speed sOffset="0" max="45"/>
+                </lane>
+
+            </right>
+        </laneSection>
+
+
+
+        <!-- SECTION 2 -->
+        <laneSection s="1000">
+            <center>
+                <lane id="0" type="none">
+                    <roadMark sOffset="0" type="solid" width="0.20"/>
+                </lane>
+            </center>
+
+            <right>
+
+                <lane id="-1" type="driving">
+                    <link><predecessor id="-1"/><successor id="-1"/></link>
+                    <width sOffset="0" a="3.2"/>
+                    <roadMark sOffset="0" type="broken" width="0.20"><line length="3" space="9"/></roadMark>
+                    <speed sOffset="0" max="45"/>
+                </lane>
+
+                <lane id="-2" type="driving">
+                    <link><predecessor id="-2"/><successor id="-2"/></link>
+                    <width sOffset="0" a="3.2"/>
+                    <roadMark sOffset="0" type="broken" width="0.20"><line length="3" space="9"/></roadMark>
+                    <speed sOffset="0" max="45"/>
+                </lane>
+
+                <lane id="-3" type="driving">
+                    <link><predecessor id="-3"/><successor id="-3"/></link>
+                    <width sOffset="0" a="3.2"/>
+                    <roadMark sOffset="0" type="broken" width="0.20"><line length="3" space="9"/></roadMark>
+                    <speed sOffset="0" max="45"/>
+                </lane>
+
+                <lane id="-4" type="driving">
+                    <link><predecessor id="-4"/><successor id="-4"/></link>
+                    <width sOffset="0" a="3.2"/>
+                    <roadMark sOffset="0" type="broken" width="0.20"><line length="3" space="9"/></roadMark>
+                    <speed sOffset="0" max="45"/>
+                </lane>
+                
+                <lane id="-5" type="driving">
+                    <link><predecessor id="-4"/><successor id="-4"/></link>
+                    <width sOffset="0" a="3.2"/>
+                    <roadMark sOffset="0" type="broken" width="0.20"><line length="3" space="9"/></roadMark>
+                    <speed sOffset="0" max="45"/>
+                </lane>
+                
+                <lane id="-6" type="driving">
+                    <link><predecessor id="-4"/><successor id="-4"/></link>
+                    <width sOffset="0" a="3.2"/>
+                    <roadMark sOffset="0" type="broken" width="0.20"><line length="3" space="9"/></roadMark>
+                    <speed sOffset="0" max="45"/>
+                </lane>
+                
+                <lane id="-7" type="driving">
+                    <link><predecessor id="-4"/><successor id="-4"/></link>
+                    <width sOffset="0" a="3.2"/>
+                    <roadMark sOffset="0" type="broken" width="0.20"><line length="3" space="9"/></roadMark>
+                    <speed sOffset="0" max="45"/>
+                </lane>
+                
+                <lane id="-8" type="driving">
+                    <link><predecessor id="-4"/><successor id="-4"/></link>
+                    <width sOffset="0" a="3.2"/>
+                    <roadMark sOffset="0" type="broken" width="0.20"><line length="3" space="9"/></roadMark>
+                    <speed sOffset="0" max="45"/>
+                </lane>
+                
+                <lane id="-9" type="driving">
+                    <link><predecessor id="-4"/><successor id="-4"/></link>
+                    <width sOffset="0" a="3.2"/>
+                    <roadMark sOffset="0" type="broken" width="0.20"><line length="3" space="9"/></roadMark>
+                    <speed sOffset="0" max="45"/>
+                </lane>
+
+            </right>
+        </laneSection>
+
+    </lanes>
+
+</road>
+</OpenDRIVE>
+

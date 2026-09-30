@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CARLA-GS | IROS 2026</title>
+  <meta name="description" content="CARLA-GS: Decoupling Representation, Reasoning, and Physics Simulation for Autonomous Driving Corner-Case Synthesis. IROS 2026.">
+  <meta name="keywords" content="CARLA-GS, Gaussian Splatting, corner case, autonomous driving, LLM, CARLA, IROS 2026">
+  <meta property="og:title" content="CARLA-GS | IROS 2026">
+  <meta property="og:description" content="Photorealistic, physically feasible driving corner cases from real data: 3DGS + multi-agent LLM + CARLA.">
+  <meta property="og:image" content="static/images/og.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111827'/%3E%3Ctext x='32' y='42' font-family='Arial,Helvetica,sans-serif' font-size='26' font-weight='700' fill='%23fff' text-anchor='middle'%3EGS%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <a class="venue" href="https://www.iros2026.org/" target="_blank" rel="noopener">
+      <img src="static/images/iros2026.png" alt="IROS 2026 Pittsburgh logo">
+    </a>
+
+    <h1 class="title">
+      <span class="name">CARLA-GS</span>
+      <span class="sub">Decoupling Representation, Reasoning, and Physics Simulation for Autonomous Driving Corner-Case Synthesis</span>
+    </h1>
+
+    <p class="authors">
+      <span class="au"><a href="#">Kaicong Huang</a><sup>1</sup></span>
+      <span class="au"><a href="#">Meng Ma</a><sup>1</sup></span>
+      <span class="au"><a href="#">Ruimin Ke</a><sup>1,&#8727;</sup></span>
+    </p>
+    <p class="affil">
+      <sup>1</sup>Rensselaer Polytechnic Institute &nbsp;·&nbsp; <sup>&#8727;</sup>Corresponding author
+    </p>
+    <p class="conf">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) 2026</p>
+
+    <nav class="links" aria-label="Resources">
+      <a class="btn" href="https://arxiv.org/html/2607.07601v1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+        arXiv
+      </a>
+      <a class="btn" href="https://github.com/ccoopq/CARLA-GS" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="fill"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
+        Code
+      </a>
+      <a class="btn" href="static/pdf/CARLA-GS_poster.pdf" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 22h8M12 18v4"/></svg>
+        Poster
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ TEASER ============ -->
+<section class="teaser">
+  <div class="wrap wide">
+    <figure class="fig teaser-fig">
+      <img src="static/images/framework.jpg" alt="CARLA-GS framework: raw video to Gaussian Splatting, LLM agents Zone and Trajectory, CARLA simulation, back-projection and SAM 3D replacement">
+    </figure>
+    <p class="tldr">
+      <strong>TL;DR</strong> Real driving log &rarr; editable 3D Gaussian scene &rarr; LLM agents pick a risky vehicle and plan an adversarial path &rarr;
+      CARLA executes it with physics &rarr; the result is rendered back into the real scene.
+    </p>
+  </div>
+</section>
+
+<!-- ============ ABSTRACT ============ -->
+<section id="abstract">
+  <div class="wrap">
+    <h2>Abstract</h2>
+    <p>
+      Safety evaluation for autonomous driving is dominated by rare, safety-critical interactions, motivating simulators
+      that can deliberately synthesize corner cases with photorealistic observations. Corner-case generation is inherently a
+      multi-source problem spanning visual representation, scene reasoning, and vehicle trajectory generation and control.
+      Prior knowledge- and model-based approaches typically focus on scene or trajectory components in isolation, while
+      diffusion-based methods attempt end-to-end generation but still struggle to ensure spatiotemporal consistency and
+      physical realism.
+    </p>
+    <p>
+      We propose <b>CARLA-GS</b>, a modular corner-case synthesis pipeline that decouples visual representation, semantic
+      reasoning, and physics-based execution while maintaining tight cross-module coupling. Starting from real driving data,
+      we reconstruct an editable Gaussian scene with additional geometry-consistent constraints. A multi-agent LLM then
+      performs scene-level reasoning to identify risky interactions and generate intent-level waypoint trajectories, while
+      low-level motion control is delegated to CARLA, where a PID controller ensures kinematic and dynamic feasibility. The
+      simulated vehicle states are finally re-projected into the Gaussian scene for ego-centric rendering. Experiments on the
+      Waymo Open Dataset show that our framework enables controllable corner-case generation and produces photorealistic,
+      spatiotemporally consistent videos aligned with semantic intent and physically feasible motion.
+    </p>
+  </div>
+</section>
+
+<!-- ============ KEY NUMBERS ============ -->
+<section class="stats-band" aria-label="Key results">
+  <div class="wrap wide">
+    <div class="stats">
+      <div class="stat"><span class="v">92.5<small>%</small></span><span class="k">Corner-case success<br>(TTC &lt; 1 s)</span></div>
+      <div class="stat"><span class="v">0.47<small> s</small></span><span class="k">Mean minimum<br>time-to-collision</span></div>
+      <div class="stat"><span class="v">&minus;58<small>%</small></span><span class="k">Curvature rate<br>after CARLA execution</span></div>
+      <div class="stat"><span class="v">&minus;49<small>%</small></span><span class="k">Normal error with<br>geometry constraints</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ METHOD ============ -->
+<section id="method">
+  <div class="wrap">
+    <h2>Method</h2>
+    <p class="lead">Each module does what it is good at. Gaussians handle appearance, the LLM handles intent, CARLA handles physics.</p>
+  </div>
+  <div class="wrap">
+    <ol class="pillars">
+      <li>
+        <span class="tag">01 &middot; Represent</span>
+        <h3>Geometry-consistent 3DGS</h3>
+        <p>Street Gaussians with separate vehicle actors, plus flattening, normal and geometry losses for stable road and vehicle surfaces.</p>
+      </li>
+      <li>
+        <span class="tag">02 &middot; Reason</span>
+        <h3>Multi-agent LLM</h3>
+        <p><code>Agent&lt;Zone&gt;</code> picks the adversarial vehicle, collision zone, TTC and risk level. <code>Agent&lt;Trajectory&gt;</code> writes time-stamped waypoints.</p>
+      </li>
+      <li>
+        <span class="tag">03 &middot; Execute &amp; Render</span>
+        <h3>CARLA &rarr; Gaussians</h3>
+        <p>A PID controller tracks the waypoints in CARLA. Simulated poses are re-projected into the Gaussian scene and rendered from the ego cameras.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ RECONSTRUCTION ============ -->
+<section id="reconstruction" class="alt">
+  <div class="wrap">
+    <h2><span class="num">01</span>Geometry-Consistent Reconstruction</h2>
+    <p>
+      Onboard cameras see each surface from only a few poses, so vanilla 3DGS produces bumpy geometry.
+      We add three regularizers on top of the Street Gaussians loss: <b>flattening</b> (thin, disk-like Gaussians),
+      <b>normal</b> (match reference normals) and <b>geometry</b> (smooth, consistent surfaces), all applied inside a supervision
+      mask built from object masks and a RANSAC ground plane:
+    </p>
+    <div class="eqs">
+      <div><span class="eq-name">Total loss</span><span class="eq">&#8466; = &#8466;<sub>SG</sub> + &lambda;(&#8466;<sub>flat</sub> + &#8466;<sub>normal</sub> + &#8466;<sub>geo</sub>),&ensp;&lambda; = 0.1</span></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <figure class="fig">
+      <img src="static/images/supervision_mask.jpg" alt="Supervision mask construction with Depth Anything V2, normal map, RANSAC ground mask and object mask" loading="lazy">
+      <figcaption>Supervision mask. Reference depth from Depth Anything V2 &rarr; normals &rarr; RANSAC ground mask, fused with object masks.</figcaption>
+    </figure>
+  </div>
+  <div class="wrap">
+    <figure class="fig fig-narrow">
+      <img src="static/images/normals.jpg" alt="Surface normal comparison: raw image, GT normal, baseline normal, ours" loading="lazy">
+      <figcaption>Rendered normals. Ours recovers flatter roads and cleaner vehicle surfaces than the Street Gaussians baseline.</figcaption>
+    </figure>
+  </div>
+  <div class="wrap">
+    <div class="table-wrap">
+      <table>
+        <caption>Ablation on rendering quality and geometry consistency (Waymo).</caption>
+        <thead>
+          <tr><th>Components</th><th>PSNR &uarr;</th><th>SSIM &uarr;</th><th>LPIPS &darr;</th><th>Normal L1 &darr;</th><th>Normal Cos &darr;</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Baseline (Street Gaussians)</td><td>29.703</td><td>0.907</td><td>0.219</td><td>0.682</td><td>0.984</td></tr>
+          <tr><td>+ &#8466;<sub>flat</sub></td><td class="best">29.828</td><td class="best">0.908</td><td class="best">0.215</td><td>0.677</td><td>0.957</td></tr>
+          <tr><td>+ &#8466;<sub>flat</sub> + &#8466;<sub>normal</sub></td><td>29.521</td><td>0.906</td><td>0.217</td><td>0.361</td><td>0.482</td></tr>
+          <tr class="ours"><td>+ &#8466;<sub>flat</sub> + &#8466;<sub>normal</sub> + &#8466;<sub>geo</sub></td><td>29.027</td><td>0.900</td><td>0.223</td><td class="best">0.350</td><td class="best">0.480</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LLM ============ -->
+<section id="reasoning">
+  <div class="wrap">
+    <h2><span class="num">02</span>LLM-Driven Corner-Case Reasoning</h2>
+    <p>
+      Four collision zones <code>{front, back, left, right}</code> are defined around the ego vehicle.
+      Given a behavior from the library (or inferred by the LLM) and the tracked states of all vehicles, two chained agents decide
+      <em>who</em> moves and <em>where</em> it goes. The LLM outputs only waypoints; it never outputs control signals.
+    </p>
+  </div>
+  <div class="wrap split">
+    <figure class="fig">
+      <img src="static/images/llm_agents.jpg" alt="LLM-driven corner-case pipeline: behavior library, Agent Zone, Agent Trajectory, CARLA" loading="lazy">
+    </figure>
+    <div class="agent-log">
+      <div class="log-head">Agent&lt;Zone&gt; output</div>
+      <pre><span class="c"># Case 1 · frame 60</span>
+behavior  : sudden braking of lead vehicle
+vehicle   : 6
+zone      : front
+risk      : <span class="r">Critical</span>
+TTC       : 1.0 s
+
+<span class="c"># Case 2 · frame 60</span>
+behavior  : sudden cut-in from adjacent lane
+vehicle   : 4
+zone      : front
+risk      : <span class="o">High</span>
+TTC       : 1.2 s
+
+<span class="c"># Case 3 · frame 115</span>
+behavior  : opposing vehicle drifting over lane
+vehicle   : 84
+zone      : front
+risk      : <span class="r">Critical</span>
+TTC       : 1.99 s</pre>
+    </div>
+  </div>
+  <div class="wrap">
+    <figure class="fig">
+      <img src="static/images/trajectories.jpg" alt="Raw versus LLM-generated trajectories for braking, cut-in and lane drift cases" loading="lazy">
+      <figcaption>Raw vs. generated trajectories. Green: ego past/future. Blue &rarr; gradient: selected vehicle past and LLM waypoints. Cyan box: selected vehicle.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ CARLA ============ -->
+<section id="carla" class="alt">
+  <div class="wrap">
+    <h2><span class="num">03</span>Physics Execution in CARLA</h2>
+    <p>
+      Waypoints are imported into CARLA 0.9.16 as a reference path and tracked by <code>VehiclePIDController</code>. CARLA's vehicle model turns intent into a
+      kinematically feasible trajectory, which is then written back to the Gaussian actor pose frame by frame.
+      Near-field vehicles that were only partly observed are swapped for aligned <b>SAM&nbsp;3D</b> assets to avoid tearing under new viewpoints.
+    </p>
+  </div>
+  <div class="wrap wide">
+    <figure class="fig">
+      <img src="static/images/carla_pid.jpg" alt="PID tracking of x and y reference and CARLA simulation snapshots for three cases" loading="lazy">
+      <figcaption>Left: PID tracking along x (front) and y (left); dashed red = reference. Right: CARLA rollouts.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ VIDEOS ============ -->
+<section id="results">
+  <div class="wrap">
+    <h2><span class="num">04</span>Synthesized Corner Cases</h2>
+    <p>Three-camera renderings on Waymo. Toggle between vanilla Gaussian actors and SAM&nbsp;3D replacement.</p>
+  </div>
+  <div class="wrap wide">
+    <div class="tabs" role="tablist" aria-label="Corner cases">
+      <button role="tab" class="tab active" data-case="1" aria-selected="true">Sudden braking</button>
+      <button role="tab" class="tab" data-case="2" aria-selected="false">Cut-in</button>
+      <button role="tab" class="tab" data-case="3" aria-selected="false">Lane drift</button>
+    </div>
+    <div class="variants" role="group" aria-label="Rendering variant">
+      <button class="variant" data-variant="original" hidden>Original log</button>
+      <button class="variant" data-variant="vanilla">Vanilla 3DGS actor</button>
+      <button class="variant active" data-variant="sam3d">+ SAM 3D replacement</button>
+    </div>
+    <figure class="video-frame">
+      <video id="case-video" autoplay muted loop playsinline controls preload="metadata" poster="static/videos/case1_brake_sam3d.jpg">
+        <source src="static/videos/case1_brake_sam3d.mp4" type="video/mp4">
+      </video>
+      <div class="cam-labels" aria-hidden="true"><span>Front-left</span><span>Front</span><span>Front-right</span></div>
+    </figure>
+    <p class="case-desc" id="case-desc"></p>
+  </div>
+  <div class="wrap wide">
+    <figure class="fig">
+      <img src="static/images/renderings.jpg" alt="Final Gaussian renderings of three corner cases, raw inputs on left and edited renderings on right" loading="lazy">
+      <figcaption>Left: raw input frames. Right: edited renderings after LLM reasoning and CARLA execution. &ldquo;Revised&rdquo; rows use SAM&nbsp;3D replacement.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ QUANT ============ -->
+<section id="quantitative" class="alt">
+  <div class="wrap">
+    <h2><span class="num">05</span>Quantitative Results</h2>
+    <p>85 corner-case scenarios from 8 Waymo sequences. All methods share initial conditions and horizons. Mean &plusmn; std.</p>
+    <div class="table-wrap">
+      <table>
+        <caption>Controllability and success.</caption>
+        <thead><tr><th>Method</th><th>Zone Hit &uarr;</th><th>Success &uarr;</th><th>MinTTC (s) &darr;</th></tr></thead>
+        <tbody>
+          <tr><td>Rule-based</td><td>0.138 &plusmn; 0.347</td><td>0.613 &plusmn; 0.490</td><td>1.483 &plusmn; 1.794</td></tr>
+          <tr><td>Random</td><td>0.063 &plusmn; 0.244</td><td>0.738 &plusmn; 0.443</td><td>1.095 &plusmn; 1.560</td></tr>
+          <tr class="ours"><td>Ours (multi-agent LLM)</td><td class="best">0.438 &plusmn; 0.499</td><td class="best">0.925 &plusmn; 0.265</td><td class="best">0.472 &plusmn; 1.215</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption>Feasibility and ride comfort.</caption>
+        <thead><tr><th>Method</th><th>|a<sub>lat</sub>|<sub>95</sub> (m/s&sup2;) &darr;</th><th>|&kappa;&#775;|<sub>95</sub> (1/(m&middot;s)) &darr;</th><th>ComfortViol (%) &darr;</th></tr></thead>
+        <tbody>
+          <tr><td>LLM-only</td><td>2.66 &plusmn; 5.17</td><td>1.02 &plusmn; 4.05</td><td>9.62 &plusmn; 19.15</td></tr>
+          <tr class="ours"><td>Ours (LLM + CARLA)</td><td class="best">2.02 &plusmn; 3.35</td><td class="best">0.43 &plusmn; 0.97</td><td class="best">9.39 &plusmn; 21.45</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POSTER ============ -->
+<section id="poster">
+  <div class="wrap">
+    <h2>Poster</h2>
+    <a class="poster-card" href="static/pdf/CARLA-GS_poster.pdf" target="_blank" rel="noopener">
+      <img src="static/images/poster_thumb.jpg" alt="CARLA-GS IROS 2026 poster" loading="lazy">
+      <span>Open poster PDF (120 &times; 90 cm)</span>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="footer-logos">
+      <img src="static/images/rpi_red.svg" alt="Rensselaer Polytechnic Institute" class="rpi">
+      <img src="static/images/iros2026.png" alt="IROS 2026" class="iros">
+    </div>
+    <p>
+      Built on <a href="https://github.com/zju3dv/street_gaussians" target="_blank" rel="noopener">Street Gaussians</a>,
+      <a href="https://carla.org/" target="_blank" rel="noopener">CARLA</a> and
+      <a href="https://github.com/facebookresearch/sam-3d-objects" target="_blank" rel="noopener">SAM 3D</a>.
+      Data from the <a href="https://waymo.com/open/" target="_blank" rel="noopener">Waymo Open Dataset</a>.
+    </p>
+  </div>
+</footer>
+
+<script src="static/js/main.js"></script>
+</body>
+</html>
