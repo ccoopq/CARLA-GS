@@ -241,9 +241,21 @@ figcaption { font-size: 14px; color: var(--ink-3); margin-top: 10px; text-align:
 .tab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
 .variant { font-size: 13px; padding: 6px 12px; }
 .variant.active { background: var(--accent-soft); color: var(--accent); border-color: #f5b5bf; }
-.compare-label { margin: 0 0 8px; font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
-.compare-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin: 18px 0 8px; }
-.compare-head .compare-label, .compare-head .variants { margin: 0; }
+.case-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-bottom: 14px; }
+.case-bar .tabs, .case-bar .variants { margin: 0; }
+.compare { display: grid; gap: 10px; cursor: pointer; }
+.compare video[hidden] { display: none; }
+.badge {
+  position: absolute; left: 10px; bottom: 10px;
+  font-size: 12px; font-weight: 700; letter-spacing: .04em;
+  color: #fff; background: rgba(15, 23, 42, .72); padding: 4px 10px; border-radius: 6px;
+  pointer-events: none;
+}
+.badge.accent { background: var(--accent); }
+@media (max-width: 640px) {
+  .badge { left: 6px; bottom: 6px; font-size: 10px; padding: 2px 6px; }
+  .cam-labels span { margin: 6px; font-size: 9px; padding: 2px 5px; }
+}
 .case-desc { margin-top: 14px; text-align: center; font-size: 15px; color: var(--ink-2); }
 
 /* ---------- Tables ---------- */
