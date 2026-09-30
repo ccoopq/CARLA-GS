@@ -215,7 +215,7 @@ def generate_random_behavior_trajectory(
 # ============================================================
 def parse_args():
     parser = argparse.ArgumentParser(description="Track LLM waypoints with a PID controller in CARLA.")
-    parser.add_argument("--input", required=True, help="LLM corner-case trajectory CSV (from LLMCorner/main3.0.py)")
+    parser.add_argument("--input", required=True, help="LLM corner-case trajectory CSV (from LLMCorner/main.py)")
     parser.add_argument("--output", default="target_vehicle_trajectory.csv", help="CARLA-executed trajectory CSV")
     parser.add_argument("--xodr", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "super_road.xodr"),
                         help="OpenDRIVE map used for execution")

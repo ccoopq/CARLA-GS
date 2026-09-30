@@ -87,27 +87,27 @@ Reference depth / normals come from Depth Anything V2; object and ground masks a
 **1. Reconstruct the scene**
 
 ```bash
-python train.py --config configs/example/waymo_train_002.yaml
+python train.py --config configs/example/waymo_train_<scene>.yaml
 ```
 
 **2. LLM corner-case reasoning** — `Agent<Zone>` + `Agent<Trajectory>` output the selected vehicle, zone, TTC, risk and a waypoint CSV.
 Put each scene's `track_info.csv` (object tracks) and `ego_pose.txt` (ego poses) in `LLMCorner/data/<scene>/`.
 
 ```bash
-python LLMCorner/main3.0.py --scene 031                 # optional: --behavior "sudden braking"
+python LLMCorner/main.py --scene <scene>                # optional: --behavior "sudden braking"
 ```
 
 **3. CARLA execution** — start the CARLA 0.9.16 server, then track the LLM waypoints with PID control:
 
 ```bash
-python carla/carla_PID.py --input LLMCorner/data/031/corner_track_info__031_<frame>.csv \
+python carla/carla_PID.py --input LLMCorner/data/<scene>/corner_track_info__<scene>_<frame>.csv \
                           --output target_vehicle_trajectory.csv
 ```
 
 **4. Back-project and render** — writes the CARLA poses into the Gaussian scene and renders all cameras
 
 ```bash
-python carla2gs.py --config configs/example/waymo_train_031.yaml mode trajectory \
+python carla2gs.py --config configs/example/waymo_train_<scene>.yaml mode trajectory \
                    carla_traj target_vehicle_trajectory.csv
 ```
 

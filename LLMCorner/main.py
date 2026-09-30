@@ -839,7 +839,7 @@ Respond ONLY with the JSON object.
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description="Multi-agent LLM corner-case trajectory generation.")
-    parser.add_argument("--scene", default="134", help="scene id; reads <data_dir>/<scene>/track_info.csv and ego_pose.txt")
+    parser.add_argument("--scene", required=True, help="scene id; reads <data_dir>/<scene>/track_info.csv and ego_pose.txt")
     parser.add_argument("--data_dir", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "data"))
     parser.add_argument("--model", default="gpt-5.2")
     parser.add_argument("--fps", type=int, default=24)
